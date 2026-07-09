@@ -1,0 +1,17 @@
+{
+  "name": "the-commons",
+  "version": "1.0.0",
+  "description": "Neighborhood Resource Circulation System",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd client && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../client && npm install",
+    "db:init": "cd backend && npm run db:init",
+    "db:seed": "cd backend && npm run db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
