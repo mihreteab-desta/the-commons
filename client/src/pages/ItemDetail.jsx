@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { createReservation, getItem, updateItem } from '../services/api';
+import { createReservation, deleteItem, getItem, updateItem } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import ItemImage from '../components/common/ItemImage';
 
@@ -130,6 +130,26 @@ const ItemDetail = () => {
     }
   };
 
+  const handleDeleteItem = async () => {
+    if (!window.confirm('Are you sure you want to delete this item?')) return;
+
+    try {
+      await deleteItem(item.id);
+      toast.success('Item deleted');
+      navigate('/items');
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      if (error.response?.status === 401) {
+        toast.error('Your session has expired. Please log in again.');
+        navigate('/login');
+      } else if (error.response?.status === 403) {
+        toast.error('You can only delete your own items');
+      } else {
+        toast.error(error.response?.data?.error || 'Failed to delete item');
+      }
+    }
+  };
+
   const handleBorrowRequest = async (e) => {
     e.preventDefault();
 
@@ -200,8 +220,9 @@ const ItemDetail = () => {
     );
   }
 
-  // Check if the current user is the owner of the item
   const isOwner = isAuthenticated && user && Number(item.owner_id) === Number(user.id);
+  const isAdmin = isAuthenticated && user?.role === 'admin';
+  const canManageItem = isOwner || isAdmin;
 
   const resetEditData = () => {
     setEditData({
@@ -263,18 +284,27 @@ const ItemDetail = () => {
               </div>
             </div>
 
-            {isOwner && (
+            {canManageItem && (
               <div className="tc-form-card tc-owner-edit-card">
                 <div className="tc-section-title">
-                  <h2>Listing Details</h2>
+                  <h2>{isOwner ? 'Listing Details' : 'Admin Listing Controls'}</h2>
                   {!isEditingDetails && (
-                    <button
-                      type="button"
-                      className="tc-secondary-btn small"
-                      onClick={() => setIsEditingDetails(true)}
-                    >
-                      Edit
-                    </button>
+                    <div className="tc-action-row">
+                      <button
+                        type="button"
+                        className="tc-secondary-btn small"
+                        onClick={() => setIsEditingDetails(true)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="tc-danger-btn small"
+                        onClick={handleDeleteItem}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   )}
                 </div>
 
@@ -348,7 +378,9 @@ const ItemDetail = () => {
                   </form>
                 ) : (
                   <p className="tc-muted">
-                    Update the price, condition, and max loan period for this item.
+                    {isOwner
+                      ? 'Update the price, condition, and max loan period for this item.'
+                      : 'Update or remove this listing as an admin.'}
                   </p>
                 )}
               </div>
@@ -373,7 +405,7 @@ const ItemDetail = () => {
             </div>
 
             {/* Borrow Section - Only show if user is logged in and NOT the owner */}
-            {isAuthenticated && !isOwner && item.is_available ? (
+            {isAuthenticated && !isOwner && !isAdmin && item.is_available ? (
               <div className="tc-form-card tc-borrow-card">
                 <h3>Request to Rent</h3>
                 <form onSubmit={handleBorrowRequest}>
@@ -426,10 +458,14 @@ const ItemDetail = () => {
                   </button>
                 </form>
               </div>
-            ) : isAuthenticated && isOwner ? (
+            ) : isAuthenticated && canManageItem ? (
               <div className="tc-info-panel">
-                <h3>Your Item</h3>
-                <p>This is your own item. You can update listing details above.</p>
+                <h3>{isOwner ? 'Your Item' : 'Admin Mode'}</h3>
+                <p>
+                  {isOwner
+                    ? 'This is your own item. You can update listing details above.'
+                    : 'You can manage this listing because your account is an admin.'}
+                </p>
               </div>
             ) : !isAuthenticated ? (
               <div className="tc-info-panel">
