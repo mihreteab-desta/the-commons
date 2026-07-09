@@ -1,5 +1,5 @@
 "# the-commons" 
-# The Commons - Neighborhood Resource Circulation System
+# The Commons 
 
 ## 📖 Project Title & Description
 
@@ -80,6 +80,11 @@ npm install
 cd ..
 ```
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6b1222bb67ccb74013e9d48305b688e3a3b7d503
 
 #### 4. Set Up Database
 
@@ -127,7 +132,7 @@ npm start
 
 | Role | Username | Password |
 |------|----------|----------|
-| Admin | `admin_james` | `admin123` |
+| Admin | `admin_yohannes` | `admin123` |
 | Resident | `sara_tadesse` | `password123` |
 | Resident | `mike_abebe` | `password123` |
 
@@ -243,4 +248,7 @@ the-commons/
 
 ---
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b1222bb67ccb74013e9d48305b688e3a3b7d503
