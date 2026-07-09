@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.35e33927.css",
+    "main.js": "/static/js/main.2be940ac.js",
+    "static/media/landing-hero-stars.gif": "/static/media/landing-hero-stars.145a49cbcc2a3866430c.gif",
+    "index.html": "/index.html",
+    "main.35e33927.css.map": "/static/css/main.35e33927.css.map",
+    "main.2be940ac.js.map": "/static/js/main.2be940ac.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.35e33927.css",
+    "static/js/main.2be940ac.js"
+  ]
+}
