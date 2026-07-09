@@ -1,0 +1,35 @@
+<div class="page-container">
+    <div class="page-header">
+        <h1>All Reservations</h1>
+        <a href="/admin" class="back-link">&larr; Back to Admin</a>
+    </div>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Item</th>
+                    <th>Borrower</th>
+                    <th>Lender</th>
+                    <th>Period</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reservations.forEach(res => { %>
+                    <tr>
+                        <td>#<%= res.id %></td>
+                        <td><%= res.item_title %></td>
+                        <td><%= res.borrower_name %></td>
+                        <td><%= res.owner_name %></td>
+                        <td><%= new Date(res.start_date).toLocaleDateString() %> - <%= new Date(res.end_date).toLocaleDateString() %></td>
+                        <td><span class="status-badge <%= res.status %>"><%= res.status %></span></td>
+                        <td><%= new Date(res.created_at).toLocaleDateString() %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="page-container">
+    <div class="page-header">
+        <h1>Admin Dashboard</h1>
+        <p>System overview and management</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card-large">
+            <div class="stat-icon users">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number"><%= userStats.total_users %></span>
+                <span class="stat-label">Total Users</span>
+            </div>
+        </div>
+        <div class="stat-card-large">
+            <div class="stat-icon items">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number"><%= itemStats.total_items %></span>
+                <span class="stat-label">Items Listed</span>
+            </div>
+        </div>
+        <div class="stat-card-large">
+            <div class="stat-icon reservations">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number"><%= reservationStats.total_reservations %></span>
+                <span class="stat-label">Reservations</span>
+            </div>
+        </div>
+        <div class="stat-card-large">
+            <div class="stat-icon trust">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number"><%= userStats.avg_trust_score %></span>
+                <span class="stat-label">Avg Trust Score</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-grid">
+        <div class="admin-card">
+            <div class="card-header">
+                <h2>Quick Links</h2>
+            </div>
+            <div class="admin-links">
+                <a href="/admin/users" class="admin-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Manage Users
+                </a>
+                <a href="/admin/categories" class="admin-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    Manage Categories
+                </a>
+                <a href="/admin/reservations" class="admin-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    All Reservations
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="card-header">
+                <h2>Categories</h2>
+            </div>
+            <div class="admin-categories">
+                <% categories.forEach(cat => { %>
+                    <div class="admin-category-row">
+                        <span class="category-name"><%= cat.name %></span>
+                        <span class="category-count"><%= cat.item_count %> items</span>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+        <div class="admin-card full-width">
+            <div class="card-header">
+                <h2>Recent Reservations</h2>
+            </div>
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Item</th>
+                            <th>Borrower</th>
+                            <th>Lender</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% recentReservations.forEach(res => { %>
+                            <tr>
+                                <td>#<%= res.id %></td>
+                                <td><%= res.item_title %></td>
+                                <td><%= res.borrower_name %></td>
+                                <td><%= res.owner_name %></td>
+                                <td><span class="status-badge <%= res.status %>"><%= res.status %></span></td>
+                                <td><%= new Date(res.created_at).toLocaleDateString() %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
