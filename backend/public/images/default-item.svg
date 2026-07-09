@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Default item image</title>
+  <desc id="desc">A simple placeholder image for shared items.</desc>
+  <rect width="640" height="420" fill="#f1ebfd"/>
+  <rect x="170" y="95" width="300" height="230" rx="32" fill="#ffffff" stroke="#d8c8f6" stroke-width="8"/>
+  <path d="M232 178h176M232 224h132M232 270h88" stroke="#6e32dd" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="424" cy="268" r="34" fill="#6e32dd"/>
+  <path d="M408 268h32M424 252v32" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+</svg>
