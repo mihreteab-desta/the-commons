@@ -20,6 +20,7 @@ const ItemDetail = () => {
     rental_price_per_day: '',
     condition: 'good',
     max_loan_days: 7,
+    is_available: true,
     image_url: ''
   });
   const [isEditingDetails, setIsEditingDetails] = useState(false);
@@ -34,6 +35,7 @@ const ItemDetail = () => {
           rental_price_per_day: response.data.rental_price_per_day ?? 0,
           condition: response.data.condition || 'good',
           max_loan_days: response.data.max_loan_days || 7,
+          is_available: response.data.is_available ?? true,
           image_url: response.data.image_url || ''
         });
       } catch (error) {
@@ -58,6 +60,7 @@ const ItemDetail = () => {
           rental_price_per_day: fallbackItem.rental_price_per_day,
           condition: fallbackItem.condition,
           max_loan_days: fallbackItem.max_loan_days,
+          is_available: fallbackItem.is_available,
           image_url: fallbackItem.image_url || ''
         });
       } finally {
@@ -72,7 +75,11 @@ const ItemDetail = () => {
   };
 
   const handleEditChange = (e) => {
-    setEditData({ ...editData, [e.target.name]: e.target.value });
+    const value = e.target.name === 'is_available'
+      ? e.target.value === 'true'
+      : e.target.value;
+
+    setEditData({ ...editData, [e.target.name]: value });
   };
 
   const handleEditSubmit = async (e) => {
@@ -100,7 +107,7 @@ const ItemDetail = () => {
         description: item.description,
         condition: editData.condition,
         image_url: editData.image_url,
-        is_available: item.is_available,
+        is_available: editData.is_available,
         max_loan_days: maxLoanDays,
         rental_price_per_day: rentalPrice,
         pickup_instructions: item.pickup_instructions
@@ -111,6 +118,7 @@ const ItemDetail = () => {
         rental_price_per_day: response.data.rental_price_per_day ?? 0,
         condition: response.data.condition || 'good',
         max_loan_days: response.data.max_loan_days || 7,
+        is_available: response.data.is_available ?? true,
         image_url: response.data.image_url || ''
       });
       setIsEditingDetails(false);
@@ -229,6 +237,7 @@ const ItemDetail = () => {
       rental_price_per_day: item.rental_price_per_day ?? 0,
       condition: item.condition || 'good',
       max_loan_days: item.max_loan_days || 7,
+      is_available: item.is_available ?? true,
       image_url: item.image_url || ''
     });
     setIsEditingDetails(false);
@@ -349,6 +358,18 @@ const ItemDetail = () => {
                           onChange={handleEditChange}
                           required
                         />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="is_available">Availability</label>
+                        <select
+                          id="is_available"
+                          name="is_available"
+                          value={String(editData.is_available)}
+                          onChange={handleEditChange}
+                        >
+                          <option value="true">Available</option>
+                          <option value="false">Unavailable</option>
+                        </select>
                       </div>
                     </div>
                     <div className="form-group">
