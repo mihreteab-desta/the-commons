@@ -1,5 +1,5 @@
 "# the-commons" 
-# The Commons - Neighborhood Resource Circulation System
+# The Commons 
 
 ## 📖 Project Title & Description
 
@@ -9,8 +9,7 @@
 - 🔐 **User Authentication** - Secure registration/login with JWT & bcrypt
 - 📦 **Item Management** - List, edit, and manage items with categories & conditions
 - 📅 **Reservation System** - Request items with date ranges & approval workflow
-- ⭐ **Trust Scores** - Community-driven ratings through reviews
-- 🛡️ **Admin Dashboard** - Manage users, categories, and reservations
+- 🛡️ **Admin Dashboard** - Manage users Items, categories, and reservations
 - 🔍 **Search & Filter** - Find items by category, condition, availability
 
 ---
@@ -81,34 +80,8 @@ npm install
 cd ..
 ```
 
-#### 3. Configure Environment Variables
 
-**Backend `.env`** (`backend/.env`):
-```env
-PORT=5000
-NODE_ENV=development
 
-# PostgreSQL Database
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=the_commons
-DB_USER=postgres
-DB_PASSWORD=your_password_here
-
-# Session Secret (for admin EJS)
-SESSION_SECRET=your_session_secret_key_here
-
-# JWT Secret (for API authentication)
-JWT_SECRET=your_jwt_secret_key_here
-
-# CORS (React frontend)
-CLIENT_URL=http://localhost:3000
-```
-
-**Frontend `.env`** (`client/.env`):
-```env
-REACT_APP_API_URL=http://localhost:5000/api
-```
 
 #### 4. Set Up Database
 
@@ -156,7 +129,7 @@ npm start
 
 | Role | Username | Password |
 |------|----------|----------|
-| Admin | `admin_james` | `admin123` |
+| Admin | `admin_yohannes` | `admin123` |
 | Resident | `sara_tadesse` | `password123` |
 | Resident | `mike_abebe` | `password123` |
 
@@ -269,16 +242,6 @@ the-commons/
 | GET | `/api/users/me` | Get current user profile |
 | PUT | `/api/users/me` | Update user profile |
 | GET | `/api/users/:id` | Get user by ID |
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ---
 
